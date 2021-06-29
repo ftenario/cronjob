@@ -17,8 +17,8 @@ limitations under the License.
 package v1
 
 import (
-    batchv1beta1 "k8s.io/api/batch/v1beta1"
-    corev1 "k8s.io/api/core/v1"	
+	batchv1beta1 "k8s.io/api/batch/v1beta1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -31,7 +31,7 @@ type CronJobSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of CronJob. Edit cronjob_types.go to remove/update
-	// Foo string `json:"foo,omitempty"`	
+	// Foo string `json:"foo,omitempty"`
 
 	// +kubebuilder:validation:MinLength=0
 
@@ -51,10 +51,10 @@ type CronJobSpec struct {
 	// +optional
 	ConcurrencyPolicy ConcurrencyPolicy `json:"concurrencyPolicy,omitempty"`
 
-	// This flag tells the controller to suspend subsecquent executionsm it does not apply 
+	// This flag tells the controller to suspend subsecquent executionsm it does not apply
 	// to already started executions. Defaults to false
 	Suspend *bool `json:"suspend,omitempty"`
-	
+
 	// Specifies the job that will be creatd when executing a CronJOb
 	JobTemplate batchv1beta1.JobTemplateSpec `json:"jobTemplate"`
 
@@ -62,7 +62,7 @@ type CronJobSpec struct {
 	// The number of successful jobs to retain
 	// This is a pointer to distinguish between explicit zero an dnot specified.
 	// +optional
-	SuccessfulJobHistoryLimit *int32 `json:"successfulJObsHistoryLimit,omitempty"`
+	SuccessfulJobsHistoryLimit *int32 `json:"successfulJobsHistoryLimit,omitempty"`
 
 	// +kubebuilder:validation:Minimum=0
 	// The number of failed finished jobs to retain
@@ -73,16 +73,16 @@ type CronJobSpec struct {
 
 // ConcurrencyPolicy describes how the job will be handled
 // Only one of the following concurrent policies may be specified.
-// If none of the following policies is specified, the deafuilt one is 
-// AlowConcurrent
-// +kubebuilder:validation:Enum=Allow,Forbid,Replace 
+// If none of the following policies is specified, the deafuilt one is
+// AllowConcurrent
+// +kubebuilder:validation:enum=Allow,Forbid,Replace
 type ConcurrencyPolicy string
 
 const (
 	//AllowConcurrent allows  Cronjobs to run concurrently
 	AllowConcurrent ConcurrencyPolicy = "Allow"
 
-	//ForbidConcurrent forbids concurrent runs, skipping next run if previous 
+	//ForbidConcurrent forbids concurrent runs, skipping next run if previous
 	// hasnt finished yet.
 	ForbidConcurrent ConcurrencyPolicy = "Forbid"
 
